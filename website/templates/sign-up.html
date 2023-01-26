@@ -6,22 +6,39 @@
         <h1>Puppy Company Blog Sign-up</h1>
         <form method="POST">
             {{ form.hidden_tag() }}
-            {{ form.name.label(class="form-label") }}
-            {{ form.name(class="form-control") }}
-            <br>
-            {{ form.username.label(class="form-label") }}
-            {{ form.username(class="form-control") }}
-            <br>
-            {{ form.email.label(class="form-label") }}
-            {{ form.email(class="form-control") }}
-            <br>
-            {{ form.password1.label(class="form-label") }}
-            {{ form.password1(class="form-control") }}
-            <br>
-            {{ form.password2.label(class="form-label") }}
-            {{ form.password2(class="form-control") }}
-            <br>
-            {{ form.submit(class="btn btn-dark") }}
+            <div class="form-group">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control") }}
+                <br>
+            </div>
+            
+            <div class="form-group">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-control") }}
+                <br>
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+                <br>
+            </div>
+
+            <div class="form-group">
+                {{ form.password1.label(class="form-label") }}
+                {{ form.password1(class="form-control") }}
+                <br>
+            </div>
+
+            <div class="form-group">
+                {{ form.password2.label(class="form-label") }}
+                {{ form.password2(class="form-control") }}
+                <br>
+            </div>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-dark") }}
+            </div>
     </div>
 
 
