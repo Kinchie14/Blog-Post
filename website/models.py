@@ -10,7 +10,7 @@ def load_user(user_id):
 
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key=True)
     profile_image = db.Column(db.String(64), nullable = False, default = 'default_profile.jpeg')
@@ -24,7 +24,7 @@ class User(db.Model):
     def __init__(self,email,username,password,name):
         self.email = email
         self.username = username
-        self.password = password
+        self.password_hash = generate_password_hash(password)
         self.name = name
     
     def check_password(self, password):
