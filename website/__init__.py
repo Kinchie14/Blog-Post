@@ -1,30 +1,50 @@
 ## .website
 from flask import Flask
 import os
+from os import path
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+
 from flask_login import LoginManager
 
+db = SQLAlchemy()
+DB_NAME = "database.db"
+
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'Tanginamo'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    db.init_app(app)
 
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'mysecretkey'
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-migrate = Migrate(app,db)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'users.login'
+    from .models import User, BlogPost
+
+    create_database(app)
 
 
-from website.core.views import core
-from website.users.views import users
-from website.errorpage.errorhandler import error_pages
+    from website.core.views import core
+    from website.users.views import users
+    from website.errorpage.errorhandler import error_pages
 
-app.register_blueprint(core)
-app.register_blueprint(users)
-app.register_blueprint(error_pages)
+    app.register_blueprint(core)
+    app.register_blueprint(users)
+    app.register_blueprint(error_pages)
+
+    return app
+
+
+def create_database(app):
+    if not path.exists('website/' + DB_NAME):
+        with app.app_context():
+            db.create_all()
+        print('Created Database!')
+
