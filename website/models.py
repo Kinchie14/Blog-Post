@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(64), unique = True, index = True)
     password_hash = db.Column(db.String(64))
 
-    posts = db.relationship('Blogpost', backref='author', lazy = True)
+    posts = db.relationship('BlogPost', backref='author', lazy = True)
 
     def __init__(self,email,username,password,name):
         self.email = email
