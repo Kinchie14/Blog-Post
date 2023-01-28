@@ -5,8 +5,9 @@
 <div class="jumbotron">
     <div align = 'center'>
         <h1>Puppy Company Blog</h1>
-        <h2>Welcome to the page for {{curent_user.username}}</h2>
-        <img align='center' src="{{url-for('static', filename = 'profile_pics/'+current_user.profile_image)" alt="">
+        <h2>Welcome to the page for {{ current_user.username }}</h2>
+        <img align='center' src="{{url_for('static', filename = 'profile_pics/'+current_user.profile_image)}}" alt="">
+        <p>{{ current_user.email }}</p>
     </div>
 </div>
 
