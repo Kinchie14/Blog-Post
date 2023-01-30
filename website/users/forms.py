@@ -9,7 +9,7 @@ from website.models import User
 
 class SignupForm(FlaskForm):
     name = StringField("Input your name", validators = [DataRequired()])
-    username = StringField("Input your username", validators = [DataRequired()])
+    username = StringField("Username", validators = [DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
     password1 = PasswordField("Password", validators =[DataRequired(), EqualTo('password2', message = 'Passwords must match')])
     password2 = PasswordField("Confirm your password", validators =[DataRequired()])
