@@ -9,7 +9,7 @@ from website.models import User
 
 class SignupForm(FlaskForm):
     name = StringField("Input your name", validators = [DataRequired()])
-    username = StringField("Username", validators = [DataRequired()])
+    username = StringField("Input username", validators = [DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
     password1 = PasswordField("Password", validators =[DataRequired(), EqualTo('password2', message = 'Passwords must match')])
     password2 = PasswordField("Confirm your password", validators =[DataRequired()])
@@ -28,7 +28,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 class UpdateUserForm(FlaskForm):
-    username = StringField("Input your username", validators = [DataRequired()])
+    username = StringField("Your Username:", validators = [DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg','jpeg','png'])])
     submit = SubmitField("Update")
