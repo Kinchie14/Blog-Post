@@ -34,12 +34,12 @@ def create_app():
     from website.core.views import core
     from website.users.views import users
     from website.errorpage.errorhandler import error_pages
-    from website.blogpost.views import blogpost
+    from website.blog_posts.views import blog_posts
 
     app.register_blueprint(core)
     app.register_blueprint(users)
     app.register_blueprint(error_pages)
-    app.register_blueprint(blogpost)
+    app.register_blueprint(blog_posts)
 
     return app
 
