@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, flash, request, redirect
+from flask import Blueprint, render_template, url_for, flash, request, redirect, abort
 from flask_login import current_user, login_required
 from website import db
 from website.models import BlogPost
@@ -9,7 +9,7 @@ blogpost = Blueprint('blogpost', __name__)
 
 @blogpost.route('/create', methods=['GET', 'POST'])
 @login_required
-def createpost():
+def create_post():
     form = BlogPostForm()
 
     if form.validate_on_submit():
@@ -31,7 +31,7 @@ def blog_post(blog_post_id):
     post = blog_post)
 
 
-@blogpost.route('/<int:blog_post_id/update', methods=['GET', 'POST'])
+@blogpost.route('/<int:blog_post_id>/update', methods=['GET', 'POST'])
 @login_required
 def update(blog_post_id):
     blog_post = BlogPost.query.get_or_404(blog_post_id)
@@ -52,11 +52,11 @@ def update(blog_post_id):
     
     return render_template('create_post.html', title = 'Updating', form = form)
 
-@blogpost.route('/<int:blog_post_id/delete', methods=['GET', 'POST'])
+@blogpost.route('/<int:blog_post_id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_post(blog_post_id):
 
-    blog = BlogPost.query.get_or_404(blog_post_id)
+    blog_post = BlogPost.query.get_or_404(blog_post_id)
     if blog_post.author != current_user:
         abort(403)
     db.session.delete(blog_post)

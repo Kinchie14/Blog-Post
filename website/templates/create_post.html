@@ -3,9 +3,7 @@
 {% block content %}
     <div class="jumbotron">
         <h1>Twitter Blog Post</h1>
-    </div>
-
-        <form class ='form-group' method="POST">
+        <form  method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 {{ form.title.label(class="form-label") }}
@@ -23,5 +21,7 @@
                 {{ form.submit(class="btn btn-dark") }}
             </div>
     </div>
+    
+
 
 {% endblock %}
