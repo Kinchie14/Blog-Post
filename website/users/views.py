@@ -77,6 +77,7 @@ def login():
 #This are the endpoint on viewing the account of the user, that will show a form consist of his information
 @users.route('/account', methods = ['GET','POST'])
 @login_required
+#This are the route for viewing the account of the user. And give him an option to update his info
 def account():
     form = UpdateUserForm()
     if form.validate_on_submit():
