@@ -123,7 +123,17 @@ def account():
 @users.route("/<username>")
 def user_posts(username):
     
+    #This will allow us to cycle thru the users blogpost.
+    #If the user has multiple blogpost. This will limit how many page can you see at the screen
     page = request.args.get('page', 1, type = int)
+
+    #This is how we get the username of the user that will allow us view the post of that certain username
+    #404 means when a certain user want to manually type what would be the username on the endpoint
+    #if it turns out to have a wrong spelling, it will return a 404 error
     user = User.query.filter_by(username=username).first_or_404()
+
+    #This will help us to grab the blogpost of the user
+    #We use author because that is what we back reference on how the user handle its own blogpost on the models
+    #That is why you query the author for that blog post
     blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page, per_page=5)
     return render_template('user_blog_posts.html', blog_posts=blog_posts, user=user)
